@@ -1,5 +1,5 @@
 Cara menjalankan Project:
-- clone project dari github () atau ekstrak dari file zip
+- clone project dari github (https://github.com/MSholiudin/magang.git) atau ekstrak dari file zip
 - install depedensi laravel 
     composer instal
 - salin dan sesuaikan file konfigurasi .env dari .env.example
