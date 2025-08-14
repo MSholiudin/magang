@@ -21,6 +21,7 @@
                     <tr>
                         <th scope="col">Nama</th>
                         <th scope="col">Harga</th>
+                        <th scope="col">Stock</th>
                         <th scope="col">Deskripsi</th>
                         <th scope="col">Lihat Produk</th>
                         <th scope="col" class="text-center">Aksi</th>
@@ -31,6 +32,7 @@
                         <tr>
                             <td>{{ $item->name }}</td>
                             <td>Rp{{ number_format($item->price, 0, ',', '.') }}</td>
+                            <td>{{ $item->stock }}</td>
                             <td>{{ $item->description }}</td>
                             <td>
                                 @if ($item->file_path)
@@ -39,7 +41,7 @@
                                     <span class="text-muted">-</span>
                                 @endif
                             </td>
-                            <td class="text-center">
+                            <td class="text-center justify-content-between">
                                 <a href="{{ route('products.edit', $item->id) }}" class="btn btn-sm btn-warning me-1">Edit</a>
                                 <form action="{{ route('products.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
                                     @csrf @method('DELETE')

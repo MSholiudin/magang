@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
-    public function dashboard()
-    {
-        $products = Product::all(); // atau Product::latest()->get();
+    public function dashboard(){
+        $products = Product::where('stock', '>', 0)->get();
         return view('dashboard', compact('products'));
     }
 
@@ -27,6 +26,7 @@ class ProductsController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
             'file_path' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048'
         ]);
 
@@ -51,6 +51,7 @@ class ProductsController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
             'file_path' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048'
         ]);
 

@@ -3,14 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\SaleController;
 
-// Halaman utama (redirect ke produk atau tampilkan landing page)
+// Halaman utama
 Route::get('/', function () {
-    return view('welcome'); // atau redirect('/product');
+    return view('welcome');
 });
 
-// Dashboard (hanya untuk user terverifikasi)
-Route::get('/dashboard', [ProductsController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
+// Dashboard (menampilkan produk dalam card)
+Route::get('/dashboard', [ProductsController::class, 'dashboard'])
+    ->middleware(['auth'])
+    ->name('dashboard');
 
 // Group untuk user yang sudah login
 Route::middleware('auth')->group(function () {
@@ -21,7 +24,15 @@ Route::middleware('auth')->group(function () {
 
     // Produk (CRUD)
     Route::resource('products', ProductsController::class);
+    
+    Route::prefix('sales')->group(function() {
+        Route::get('/select-products', [SaleController::class, 'selectProducts'])->name('sales.select-products');
+        Route::get('/create', [SaleController::class, 'create'])->name('sales.create');
+        Route::post('/', [SaleController::class, 'store'])->name('sales.store');
+        Route::get('/receipt/{id}', [SaleController::class, 'receipt'])->name('sales.receipt');
+        Route::get('/', [SaleController::class, 'index'])->name('sales.index');
+        Route::delete('/{sale}', [SaleController::class, 'destroy'])->name('sales.destroy');
+    });
 });
 
-// Route autentikasi dari Laravel Breeze
 require __DIR__.'/auth.php';

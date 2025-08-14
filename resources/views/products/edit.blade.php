@@ -27,6 +27,12 @@
                         </div>
 
                         <div class="mb-3">
+                            <label class="form-label fw-bold">Stock</label>
+                            <input type="number" name="stock" class="form-control" step="any" placeholder="Masukkan stok produk" 
+                                value="{{ old('stock', $product->stock ?? '') }}">
+                        </div>
+
+                        <div class="mb-3">
                             <label class="form-label fw-bold">Deskripsi</label>
                             <textarea name="description" class="form-control" rows="3" placeholder="Tulis deskripsi produk">{{ old('description', $product->description ?? '') }}</textarea>
                         </div>
